@@ -25,5 +25,6 @@
 
 ### Additional Resources  
 
-- **Follow Khusboo** ↗️ for more such posts.  
-- **Join the Telegram group** for regular job updates and free Premium resources: [https://t.me/CodeWithKT](https://t.me/CodeWithKT)  
+- **Follow Aqsa Umar** ↗️ for more such posts.
+- [click](https://www.linkedin.com/in/aqsa-umar-162663122/)
+
