@@ -25,6 +25,5 @@
 
 ### Additional Resources  
 
-- **Follow Aqsa Umar** ↗️ for more such posts.
-- [click](https://www.linkedin.com/in/aqsa-umar-162663122/)
+- **Follow Aqsa Umar** ↗️ for more such posts.[click](https://www.linkedin.com/in/aqsa-umar-162663122/)
 
