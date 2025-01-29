@@ -1,6 +1,4 @@
- Here’s a structured roadmap for NLP/LLMs from beginner to advanced in Markdown format:  
 
-```md
 # Year-Long Roadmap for NLP/LLMs  
 A structured guide to mastering Natural Language Processing (NLP) and Large Language Models (LLMs), from beginner to advanced.  
 
@@ -60,6 +58,3 @@ By the end of this roadmap, you should be able to:
 ✅ Stay updated with cutting-edge advancements in the field.  
 
 Happy Learning! 🚀  
-```
-
-Would you like to customize any section further? 😊
