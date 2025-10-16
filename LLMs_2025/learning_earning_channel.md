@@ -3,7 +3,7 @@
 To save you hours of searching, here’s my curated list of 30+ YouTube channels — **my secret weapon** for staying sharp in AI, Data Science, and Machine Learning.  
 (Original idea & credit → *Koshik Debanath*)  
 
-These channels are **gold mines** — they’ll help you **learn deeply**, **build projects**, and **acquire skills** that can turn into **real income** (through freelancing, teaching, consulting, or job opportunities).
+These channels are **gold mines** they’ll help you **learn deeply**, **build projects**, and **acquire skills** that can turn into **real income** (through freelancing, teaching, consulting, or job opportunities).
 
 ---
 
