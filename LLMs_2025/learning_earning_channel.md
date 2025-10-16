@@ -1,4 +1,4 @@
-# 🎓💼 My Curated List of 30+ YouTube Channels for Learning & Earning in AI/ML  
+# List of YouTube Channels for Learning & Earning in AI/ML  
 
 To save you hours of searching, here’s my curated list of 30+ YouTube channels — **my secret weapon** for staying sharp in AI, Data Science, and Machine Learning.  
 (Original idea & credit → *Koshik Debanath*)  
