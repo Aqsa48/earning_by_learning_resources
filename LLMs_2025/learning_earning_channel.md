@@ -7,7 +7,7 @@ These channels are **gold mines** they’ll help you **learn deeply**, **build p
 
 ---
 
-## 🚀 Top Channels for AI, ML, and Data Science Mastery  
+## Top Channels for AI, ML, and Data Science Mastery  
 
 | # | Channel | Creator | Focus | Link |
 |:-:|:--|:--|:--|:--|
@@ -52,11 +52,11 @@ These channels are **gold mines** they’ll help you **learn deeply**, **build p
 
 ## 💡 How This List Helps You Learn and Earn  
 
-- 🎯 **Learn deeply:** Follow structured playlists on ML, DL, and AI concepts.  
-- 🧠 **Build expertise:** Implement hands-on projects to strengthen your portfolio.  
-- 💼 **Earn smartly:** Apply your skills in freelancing, teaching, or AI startups.  
-- 🌐 **Stay current:** Keep up with the latest research papers, frameworks, and trends.  
-- 🚀 **Grow your brand:** Share what you learn — blogs, videos, or GitHub projects.  
+- **Learn deeply:** Follow structured playlists on ML, DL, and AI concepts.  
+- **Build expertise:** Implement hands-on projects to strengthen your portfolio.  
+- **Earn smartly:** Apply your skills in freelancing, teaching, or AI startups.  
+-  **Stay current:** Keep up with the latest research papers, frameworks, and trends.  
+-  **Grow your brand:** Share what you learn — blogs, videos, or GitHub projects.  
 
 > Start small, stay consistent, and these channels will help you grow from **learner to earner** in AI and machine learning.
 
