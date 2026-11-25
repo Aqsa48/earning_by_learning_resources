@@ -16,6 +16,10 @@ The book's approach also works beyond coding. Here, the examples focus on Python
 
 The earning angle starts with usefulness: who has the problem, what would help them, and can they test what you made? A finished project can become a portfolio example or a starting point for a service. Income depends on demand and execution; completing a project does not guarantee paid work.
 
+## Run a complete first project
+
+**[Start here](START_HERE.md)** with a dependency-free [CSV quality report](projects/csv-quality-report/README.md). It includes synthetic data, tests, and expected output. The ideas below are additional projects you can build yourself.
+
 ## Start with one small project
 
 1. **Choose a person and a problem.** Write one sentence: “I am making ___ for ___ so they can ___.”

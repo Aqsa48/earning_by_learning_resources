@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.egg-info/
+build/
+dist/
+*.tif
+*-report.json
+baseline-report.json
+synthetic-report.json
+validation.json
+quality.json
