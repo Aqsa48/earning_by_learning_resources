@@ -1,5 +1,12 @@
 # Learn by Doing — Learning & Earning Resources
 
+[![Open Learn by Doing](https://img.shields.io/badge/Open-Learn_by_Doing-4559C6?style=for-the-badge)](https://aqsabrohi.me/earning_by_learning_resources/)
+[![Deploy learning hub](https://github.com/Aqsa48/earning_by_learning_resources/actions/workflows/pages.yml/badge.svg)](https://github.com/Aqsa48/earning_by_learning_resources/actions/workflows/pages.yml)
+
+**[Open the live project hub](https://aqsabrohi.me/earning_by_learning_resources/)** · [CSV checker](https://aqsabrohi.me/earning_by_learning_resources/#project=csv-quality) · [Weather explorer](https://aqsabrohi.me/earning_by_learning_resources/#project=weather-story) · [Portfolio builder](https://aqsabrohi.me/earning_by_learning_resources/#project=portfolio-page)
+
+Hosted on GitHub Pages, with tests, builds, and publication through GitHub Actions. Try the browser tools without signing up or installing a package.
+
 **Turn something you are learning into something useful you can finish, test, and share.**
 
 A practical starting point for students, early-career researchers, and developers who want to use their skills in a small project. This repository brings together learning resources and a reusable project log.
