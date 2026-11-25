@@ -1,3 +1,4 @@
+import {initializeExtensions} from './extensions.mjs';
 import {LIMITS, PHASES, inspectCSV, readWeather, weatherSummary, makePortfolio, normalizeProgress, filterProjects, projectLog} from './core.mjs';
 import {PROJECTS, RESOURCES, REPOSITORY} from './projects.mjs';
 
@@ -7,7 +8,7 @@ const STORAGE_KEY = 'aqsa-learn-by-doing:v1';
 let progress=normalizeProgress(null), storageAvailable=true, storageWarning='';
 try { const saved=localStorage.getItem(STORAGE_KEY); if(saved)progress=normalizeProgress(JSON.parse(saved)); }
 catch { storageWarning='Saved progress could not be read. Download your project log before leaving.';storageAvailable=false; }
-let selected=PROJECTS[0], csvURL=null, portfolioURL=null, weatherURL=null, weather=null, csvBusy=false;
+let selected=PROJECTS[0], csvURL=null, portfolioURL=null, weatherURL=null, weather=null, weatherName="Synthetic sample", weatherSynthetic=true, csvBusy=false;
 
 function saveProgress() {
   try { localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));storageAvailable=true;storageWarning=''; }
@@ -66,6 +67,7 @@ function renderCards() {
 
 function renderWorkspace(project) {
   selected=project;
+  extensions.showChallenges(project);
   $('workspace-topic').textContent=project.topic.toUpperCase()+' / GUIDED PROJECT';
   $('workspace-title').textContent=project.shortTitle;
   $('workspace-outcome').textContent=project.outcome;
@@ -135,30 +137,37 @@ const svgNode=(name,attributes={},text)=>{const element=document.createElementNS
 async function loadWeather() {
   if(weather){drawWeather();return;}
   $('weather-status').textContent='Loading the synthetic sample…';$('weather-status').classList.remove('error');
-  try{const response=await fetch('downloads/weather-sample.csv');if(!response.ok)throw Error('Weather sample could not be loaded.');weather=readWeather(await response.text());if(selected.id==='weather-story')drawWeather();}
+  try{const response=await fetch('downloads/weather-sample.csv');if(!response.ok)throw Error('Weather sample could not be loaded.');weather=readWeather(await response.text());weatherName='Synthetic sample';weatherSynthetic=true;if(selected.id==='weather-story')drawWeather();}
   catch(error){$('weather-status').textContent=error.message;$('weather-status').classList.add('error');}
 }
 function drawWeather() {
   if(!weather)return;
+  $('weather-description').textContent=weatherSynthetic?'Fourteen days of synthetic observations. Switch the view and inspect the gaps.':'Your uploaded observations. Measurements and dates are read locally; check their units and provenance before interpreting results.';
   const metric=$('weather-metric').value, rain=metric==='rain_mm', unit=rain?'mm':'°C', summary=weatherSummary(weather,metric);
-  metrics($('weather-stats'),[[summary.observed,'observed readings'],[summary.missing,'missing readings'],[rain?`${summary.sum.toFixed(1)} mm`:`${summary.mean.toFixed(1)} °C`,rain?'measured total':'observed mean']]);
-  const svg=$('weather-chart');svg.replaceChildren(svgNode('title',{id:'chart-title'},rain?'Synthetic daily rainfall':'Synthetic daily temperature'),svgNode('desc',{id:'chart-description'},`${weather.length} dates, ${summary.observed} observed values and ${summary.missing} missing values. A data table follows the chart.`));
+  metrics($('weather-stats'),[[summary.observed,'observed readings'],[summary.missing,'missing readings'],[rain?`${(summary.sum===null?'—':summary.sum.toFixed(1))} mm`:`${(summary.mean===null?'—':summary.mean.toFixed(1))} °C`,rain?'measured total':'observed mean']]);
+  const svg=$('weather-chart');svg.replaceChildren(svgNode('title',{id:'chart-title'},`${weatherSynthetic?'Synthetic':'Uploaded'} daily ${rain?'rainfall':'temperature'}`),svgNode('desc',{id:'chart-description'},`${weather.length} dates, ${summary.observed} observed values and ${summary.missing} missing values. A data table follows the chart.`));
   const values=weather.map(row=>row[metric]).filter(value=>value!==null);
   const left=48,top=24,width=447,height=208;
-  let min=rain?0:Math.floor(Math.min(...values)-1),max=Math.ceil(Math.max(...values)+1);if(max===min)max=min+1;
-  const x=index=>left+(index+.5)*width/weather.length,y=value=>top+height-(value-min)/(max-min)*height;
+  let min=rain?0:(values.length?Math.floor(Math.min(...values)-1):0),max=values.length?Math.ceil(Math.max(...values)+1):1;if(max===min)max=min+1;
+  const times=weather.map(row=>Date.parse(row.date+'T00:00:00Z'));
+  const span=Math.max(86400000,times.at(-1)-times[0]);
+  const barHalf=Math.max(.3,Math.min(9,(width-24)*86400000/span*.35));
+  const x=index=>left+12+(times[index]-times[0])/span*(width-24),y=value=>top+height-(value-min)/(max-min)*height;
   for(let i=0;i<=4;i++){const value=min+(max-min)*i/4;svg.append(svgNode('line',{x1:left,x2:left+width,y1:y(value),y2:y(value),stroke:'#e8edf5'}),svgNode('text',{x:left-9,y:y(value)+4,'text-anchor':'end','font-size':11,fill:'#66738d'},Number(value.toFixed(1)).toString()));}
   svg.append(svgNode('text',{x:left,y:14,'font-size':11,fill:'#52617c'},unit));
-  if(rain){for(const [i,row]of weather.entries()){const value=row[metric];if(value===null){svg.append(svgNode('path',{d:`M${x(i)-4} ${top+height-7}l8 8m-8 0l8-8`,stroke:'#ba5038','stroke-width':2}));continue;}svg.append(svgNode('rect',{x:x(i)-9,y:y(value),width:18,height:Math.max(1,y(0)-y(value)),rx:2,fill:'#596ed3'}));}}
-  else {let segment=[];const flush=()=>{if(segment.length)svg.append(svgNode('polyline',{points:segment.join(' '),fill:'none',stroke:'#bd5d43','stroke-width':2.5}));segment=[];};for(const [i,row]of weather.entries()){if(row[metric]===null){flush();continue;}segment.push(`${x(i)},${y(row[metric])}`);svg.append(svgNode('circle',{cx:x(i),cy:y(row[metric]),r:3.5,fill:'#bd5d43'}));}flush();}
-  for(const i of [0,6,13])if(weather[i])svg.append(svgNode('text',{x:x(i),y:top+height+24,'text-anchor':'middle','font-size':11,fill:'#66738d'},weather[i].date.slice(5)));
+  if(rain){for(const [i,row]of weather.entries()){const value=row[metric];if(value===null){svg.append(svgNode('path',{d:`M${x(i)-4} ${top+height-7}l8 8m-8 0l8-8`,stroke:'#ba5038','stroke-width':2}));continue;}svg.append(svgNode('rect',{x:x(i)-barHalf,y:y(value),width:barHalf*2,height:Math.max(1,y(0)-y(value)),rx:2,fill:'#596ed3'}));}}
+  else {let segment=[];const flush=()=>{if(segment.length)svg.append(svgNode('polyline',{points:segment.join(' '),fill:'none',stroke:'#bd5d43','stroke-width':2.5}));segment=[];};for(const [i,row]of weather.entries()){if(row[metric]===null){flush();continue;}if(i>0&&times[i]-times[i-1]>86400000)flush();segment.push(`${x(i)},${y(row[metric])}`);svg.append(svgNode('circle',{cx:x(i),cy:y(row[metric]),r:3.5,fill:'#bd5d43'}));}flush();}
+  for(const i of [...new Set([0,Math.floor((weather.length-1)/2),weather.length-1])])if(weather[i])svg.append(svgNode('text',{x:x(i),y:top+height+24,'text-anchor':'middle','font-size':11,fill:'#66738d'},weather[i].date.slice(5)));
   $('weather-table').replaceChildren(table(['Date','Rain (mm)','Temp (°C)'],weather.map(row=>[row.date,row.rain_mm??'',row.temp_c??'']),true));
-  $('weather-status').textContent='Synthetic sample loaded. A missing reading is not a measured zero.';
+  const absent=Math.round((times.at(-1)-times[0])/86400000)+1-weather.length;
+  $('weather-status').textContent=`${weatherName}: ${weather.length} dated rows; ${absent} dates absent between first and last. Missing readings and absent dates are not zeros.`;
   if(weatherURL)URL.revokeObjectURL(weatherURL);
   const serialized=new XMLSerializer().serializeToString(svg);weatherURL=URL.createObjectURL(new Blob([serialized],{type:'image/svg+xml'}));
-  $('weather-chart-download').href=weatherURL;$('weather-chart-download').download=`synthetic-${metric}.svg`;$('weather-chart-download').hidden=false;
+  $('weather-chart-download').href=weatherURL;$('weather-chart-download').download=`${weatherSynthetic?'synthetic':'uploaded'}-${metric}.svg`;$('weather-chart-download').hidden=false;
 }
 $('weather-metric').addEventListener('change',drawWeather);
+$('weather-reset').addEventListener('click',()=>{weather=null;$('weather-file').value='';loadWeather();});
+$('weather-file').addEventListener('change',async()=>{const file=$('weather-file').files[0];if(!file)return;try{if(file.size>LIMITS.bytes)throw Error('Weather files must be no larger than 2 MiB.');const parsed=readWeather(await file.text());weather=parsed;weatherName=file.name;weatherSynthetic=false;drawWeather();$('weather-status').classList.remove('error');}catch(error){$('weather-status').textContent=`Upload rejected: ${error.message} The previous chart has not been replaced.`;$('weather-status').classList.add('error');}});
 
 function updatePortfolio() {
   if(portfolioURL)URL.revokeObjectURL(portfolioURL);portfolioURL=null;$('portfolio-download').hidden=true;
@@ -169,4 +178,5 @@ function updatePortfolio() {
 $('portfolio-form').addEventListener('submit',event=>{event.preventDefault();updatePortfolio();});
 $('portfolio-form').addEventListener('input',()=>{$('portfolio-download').hidden=true;$('portfolio-status').textContent='Your text changed. Update the preview before downloading.';});
 
+const extensions=initializeExtensions({getProgress:()=>progress,setProgress:value=>{progress=value;saveProgress();renderWorkspace(selected);},download});
 renderResources();renderWorkspace(PROJECTS[0]);fromHash(true);

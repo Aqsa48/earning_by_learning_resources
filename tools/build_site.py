@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
-WEB_FILES = ['index.html', 'style.css', 'app.mjs', 'core.mjs', 'projects.mjs', 'favicon.svg']
+WEB_FILES = ['index.html', 'style.css', 'app.mjs', 'core.mjs', 'projects.mjs', 'favicon.svg', 'extensions.mjs', 'practice.mjs', 'python-worker.mjs', 'gallery.json']
 DOWNLOADS = {
     'csv-report.py': 'projects/csv-quality-report/report.py',
     'csv-sample.csv': 'projects/csv-quality-report/sample.csv',

@@ -32,7 +32,7 @@ jobs:
           node-version: '22'
       - name: Check project behavior
         run: |
-          node --test web/tests/core.test.mjs
+          node --test web/tests/core.test.mjs web/tests/practice.test.mjs
           python -m unittest discover -s projects/csv-quality-report -v
           python -m unittest discover -s projects/weather-data -v
           python -m unittest discover -s tools -v

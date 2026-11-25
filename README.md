@@ -145,3 +145,7 @@ The original collection is preserved below. These links were collected in May 20
 48. [Colors in dataviz](https://lnkd.in/dWU6WkhU)
 49. [Geospatial data science in Python](https://lnkd.in/gCbqNXFn)
 50. [Network analysis](https://ow.ly/fYm550PjRyf)
+
+## Practise, experiment, and continue on another device
+
+The live hub now includes six explained challenges, an optional Python playground, progress export/import with note preservation, weather CSV uploads, and a gallery of clearly labeled maintainer examples. Browser Python loads on demand from jsDelivr and supports standard-library experiments. Uploaded files are kept separate from the playground. See [WEB_GUIDE.md](WEB_GUIDE.md) for limits and [COMMUNITY_GALLERY.md](COMMUNITY_GALLERY.md) to propose an example for review.

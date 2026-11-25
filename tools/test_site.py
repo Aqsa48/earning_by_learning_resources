@@ -32,7 +32,7 @@ class SiteTests(unittest.TestCase):
             parser.feed((output/'index.html').read_text(encoding='utf-8'))
             self.assertEqual(len(parser.ids),len(set(parser.ids)))
             self.assertEqual(parser.iframe_sandbox,[''])
-            references = set(re.findall(r"\$\('([^']+)'\)", (ROOT/'web/app.mjs').read_text(encoding='utf-8')))
+            references = set(re.findall(r"\$\('([^']+)'\)", '\n'.join(p.read_text(encoding='utf-8') for p in (ROOT/'web').glob('*.mjs'))))
             self.assertTrue(references.issubset(set(parser.ids)), references-set(parser.ids))
             for url in parser.links:
                 if url.startswith(('https://', '#')) or url == './':

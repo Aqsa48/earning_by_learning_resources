@@ -23,7 +23,7 @@ jobs:
         run: |
           python -m unittest discover -s projects/csv-quality-report -v
           python projects/csv-quality-report/report.py projects/csv-quality-report/sample.csv
-          node --test web/tests/core.test.mjs
+          node --test web/tests/core.test.mjs web/tests/practice.test.mjs
           python -m unittest discover -s projects/weather-data -v
           python -m unittest discover -s tools -v
           python tools/build_site.py
