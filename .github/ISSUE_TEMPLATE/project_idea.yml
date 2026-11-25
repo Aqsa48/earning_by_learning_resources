@@ -1,0 +1,23 @@
+name: Project idea
+description: Suggest a small project that someone can finish and test
+body:
+  - type: textarea
+    id: reader
+    attributes:
+      label: Who is this for, and what problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What is a finished first version?
+      description: Include prerequisites, an approximate time, and what should be left for later.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How can someone test it?
+      description: Include public or synthetic inputs, expected results, and source permissions. Do not include private data.
+    validations:
+      required: true
