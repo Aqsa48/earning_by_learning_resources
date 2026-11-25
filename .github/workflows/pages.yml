@@ -1,0 +1,60 @@
+name: Deploy learning hub
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - 'projects/**'
+      - 'tools/**'
+      - 'PROJECT_LOG.md'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Test and package learning hub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check project behavior
+        run: |
+          node --test web/tests/core.test.mjs
+          python -m unittest discover -s projects/csv-quality-report -v
+          python -m unittest discover -s projects/weather-data -v
+          python -m unittest discover -s tools -v
+      - name: Build public static files
+        run: python tools/build_site.py
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Publish learning hub
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

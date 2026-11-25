@@ -16,9 +16,17 @@ The book's approach also works beyond coding. Here, the examples focus on Python
 
 The earning angle starts with usefulness: who has the problem, what would help them, and can they test what you made? A finished project can become a portfolio example or a starting point for a service. Income depends on demand and execution; completing a project does not guarantee paid work.
 
-## Run a complete first project
+## Choose a complete first project
 
-**[Start here](START_HERE.md)** with a dependency-free [CSV quality report](projects/csv-quality-report/README.md). It includes synthetic data, tests, and expected output. The ideas below are additional projects you can build yourself.
+| Project | A finished first version | Prerequisites |
+| --- | --- | --- |
+| [CSV quality checker](projects/csv-quality-report/README.md) | A JSON report of missing cells, exact duplicates, and malformed rows | A browser to try; basic Python to build locally |
+| [Weather-data visualization](projects/weather-data/README.md) | A labeled chart and an explanation that keeps missing observations visible | Basic Python; Matplotlib for the local script |
+| [Personal portfolio page](projects/portfolio-page/README.md) | A standalone HTML page explaining one actual project | A browser and text editor |
+
+The interactive hub adds project filters, guided steps, browser-saved progress and notes, a local CSV checker, a weather explorer, and a portfolio-page builder. See the [web guide](WEB_GUIDE.md) for local preview and GitHub Pages deployment. [Start here](START_HERE.md) if you prefer the repository guides.
+
+All examples use synthetic data or editable starter content. CSV files and portfolio text stay on the visitor's device. Progress belongs to the browser where it is saved; download a project log to keep a separate copy.
 
 ## Start with one small project
 
@@ -32,7 +40,7 @@ Copy the **[project log](PROJECT_LOG.md)** into your own notes to begin. There i
 
 ## Project ideas you can adapt
 
-These are starting ideas, rather than completed projects included in this repository.
+The three projects above have runnable first versions. These additional directions can help you choose a next project.
 
 | If you want to practise… | Try building… | A finished first version |
 | --- | --- | --- |

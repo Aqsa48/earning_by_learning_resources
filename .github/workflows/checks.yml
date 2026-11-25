@@ -16,7 +16,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Run checks
         run: |
           python -m unittest discover -s projects/csv-quality-report -v
           python projects/csv-quality-report/report.py projects/csv-quality-report/sample.csv
+          node --test web/tests/core.test.mjs
+          python -m unittest discover -s projects/weather-data -v
+          python -m unittest discover -s tools -v
+          python tools/build_site.py

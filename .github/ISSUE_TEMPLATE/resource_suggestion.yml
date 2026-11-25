@@ -1,0 +1,22 @@
+name: Resource suggestion
+description: Share a direct learning reference you have tried
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Direct resource URL
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Who does it help, and what prerequisites are needed?
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What task did you try, and when did you check it?
+      description: Explain account requirements, payment requirements, and any limitations.
+    validations:
+      required: true
