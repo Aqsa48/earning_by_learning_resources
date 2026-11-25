@@ -4,9 +4,10 @@ from pathlib import Path
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
-WEB_FILES = ['index.html', 'style.css', 'app.mjs', 'core.mjs', 'projects.mjs', 'favicon.svg', 'extensions.mjs', 'practice.mjs', 'python-worker.mjs', 'gallery.json']
+WEB_FILES = ['index.html', 'style.css', 'app.mjs', 'core.mjs', 'projects.mjs', 'favicon.svg', 'extensions.mjs', 'practice.mjs', 'python-worker.mjs', 'gallery.json', 'csv-lesson.mjs']
 DOWNLOADS = {
     'csv-report.py': 'projects/csv-quality-report/report.py',
+    'csv-edge-cases.csv': 'projects/csv-quality-report/edge-cases.csv',
     'csv-sample.csv': 'projects/csv-quality-report/sample.csv',
     'weather-plot.py': 'projects/weather-data/weather_plot.py',
     'weather-sample.csv': 'projects/weather-data/sample.csv',

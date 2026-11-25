@@ -11,6 +11,15 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(result["missing_cells"]["rain_mm"], 1)
         self.assertEqual(result["duplicate_rows"], 1)
 
+    def test_learning_exercise_with_quoted_comma_and_malformed_row(self):
+        result = inspect_csv(Path(__file__).with_name("edge-cases.csv"))
+        self.assertEqual(result["rows"], 5)
+        self.assertEqual(result["valid_rows"], 4)
+        self.assertEqual(result["columns"], ["station", "date", "rain_mm"])
+        self.assertEqual(result["missing_cells"], {"station": 0, "date": 0, "rain_mm": 1})
+        self.assertEqual(result["duplicate_rows"], 1)
+        self.assertEqual(result["malformed_line_numbers"], [6])
+
     def test_malformed_and_quoted_cells(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "example.csv"

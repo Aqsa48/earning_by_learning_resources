@@ -23,6 +23,10 @@ The book's approach also works beyond coding. Here, the examples focus on Python
 
 The earning angle starts with usefulness: who has the problem, what would help them, and can they test what you made? A finished project can become a portfolio example or a starting point for a service. Income depends on demand and execution; completing a project does not guarantee paid work.
 
+## Try the CSV worked lesson
+
+[Open the CSV lesson](https://aqsabrohi.me/earning_by_learning_resources/#project=csv-quality): predict an answer, run one of two synthetic CSV exercises, and check your JSON report against eight expected fields. The lesson includes explained solutions and common mistakes. Follow the [complete Python walkthrough](projects/csv-quality-report/README.md#worked-example) to reproduce it locally.
+
 ## Choose a complete first project
 
 | Project | A finished first version | Prerequisites |

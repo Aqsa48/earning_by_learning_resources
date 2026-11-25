@@ -1,3 +1,4 @@
+import {initializeCSVLesson} from './csv-lesson.mjs';
 import {initializeExtensions} from './extensions.mjs';
 import {LIMITS, PHASES, inspectCSV, readWeather, weatherSummary, makePortfolio, normalizeProgress, filterProjects, projectLog} from './core.mjs';
 import {PROJECTS, RESOURCES, REPOSITORY} from './projects.mjs';
@@ -113,12 +114,13 @@ function renderResources() {
 }
 
 async function runCSV(loader, filename) {
-  if(csvBusy)return;csvBusy=true;$('csv-sample').disabled=true;$('csv-file').disabled=true;
+  if(csvBusy)return;csvLesson.setCurrentReport(null);csvBusy=true;$('csv-sample').disabled=true;$('csv-file').disabled=true;
   $('csv-results').hidden=true;$('csv-download').hidden=true;
   if(csvURL)URL.revokeObjectURL(csvURL);csvURL=null;
   $('csv-status').textContent='Reading the CSV on your device…';$('csv-status').classList.remove('error');
   try {
     const text=await loader();const result=inspectCSV(text,filename), report=result.report;
+    csvLesson.setCurrentReport(report);
     metrics($('csv-stats'),[[report.rows,'data rows'],[result.missingTotal,'missing cells'],[report.duplicate_rows,'duplicate rows']]);
     $('missing-table').replaceChildren(table(['Column','Missing cells'],report.columns.map(name=>[name,report.missing_cells[name]])));
     $('csv-preview').replaceChildren(table(report.columns,result.preview,true));
@@ -178,5 +180,6 @@ function updatePortfolio() {
 $('portfolio-form').addEventListener('submit',event=>{event.preventDefault();updatePortfolio();});
 $('portfolio-form').addEventListener('input',()=>{$('portfolio-download').hidden=true;$('portfolio-status').textContent='Your text changed. Update the preview before downloading.';});
 
+const csvLesson=initializeCSVLesson({download});
 const extensions=initializeExtensions({getProgress:()=>progress,setProgress:value=>{progress=value;saveProgress();renderWorkspace(selected);},download});
 renderResources();renderWorkspace(PROJECTS[0]);fromHash(true);
